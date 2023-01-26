@@ -17,7 +17,7 @@
   <script src="https://unpkg.com/@babel/standalone@7.20.13/babel.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    function App() {
+    function MinsHours() {
       const [amount, setAmount] = React.useState(0);
       const [flipped, setFlipped] = React.useState(false);
 
@@ -32,7 +32,6 @@
 
       return (
         <div>
-          <h1>Super Converter</h1>
           <input
             value={flipped ? Math.round(amount * 60) : amount}
             placeholder="Minutes"
@@ -40,6 +39,7 @@
             onChange={onChange}
             disabled={flipped}
           />
+          <span> Mins</span>
 
           <div>
             <button onClick={reset}>Reset</button>
@@ -48,8 +48,6 @@
             </button>
           </div>
 
-          <h4>Converting {amount}</h4>
-
           <input
             value={flipped ? amount : Math.round(amount / 60)}
             placeholder="Hours"
@@ -57,6 +55,71 @@
             onChange={onChange}
             disabled={!flipped}
           />
+          <span> Hours</span>
+        </div>
+      );
+    }
+
+    function KilosMiles() {
+      const [amount, setAmount] = React.useState(0);
+      const [flipped, setFlipped] = React.useState(false);
+
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        setFlipped((current) => !current);
+        reset();
+      };
+
+      return (
+        <div>
+          <input
+            value={flipped ? Math.round(amount * 1.609344) : amount}
+            placeholder="Miles"
+            type="number"
+            onChange={onChange}
+            disabled={flipped}
+          />
+          <span> Miles</span>
+
+          <div>
+            <button onClick={reset}>Reset</button>
+            <button onClick={onFlip}>
+              {flipped ? "miles to kilos" : "kilos to miles"}
+            </button>
+          </div>
+
+          <input
+            value={flipped ? amount : Math.round(amount / 1.609344)}
+            placeholder="Kilos"
+            type="number"
+            onChange={onChange}
+            disabled={!flipped}
+          />
+          <span> Kilos</span>
+        </div>
+      );
+    }
+
+    function App() {
+      const [index, setIndex] = React.useState("x");
+      const onSelect = (event) => {
+        setIndex(event.target.value);
+      };
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <select value={index} onChange={onSelect}>
+            <option value="x">Select</option>
+            <option value="0">Mins&Hours</option>
+            <option value="1">Kilos&Miles</option>
+          </select>
+          <div>
+            {index === "0" ? <MinsHours /> : null}
+            {index === "1" ? <KilosMiles /> : null}
+          </div>
         </div>
       );
     }
