@@ -18,7 +18,7 @@
   <script src="https://unpkg.com/@babel/standalone@7.20.13/babel.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    function Btn(props) {
+    function Btn({ text, big }) {
       return (
         <button
           style={{
@@ -27,16 +27,17 @@
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
+            fontSize: big ? 20 : 15,
           }}
         >
-          {props.text}
+          {text}
         </button>
       );
     }
     function App() {
       return (
         <div>
-          <Btn text="Login" />
+          <Btn text="Login" big={true} />
           <Btn text="Join" />
         </div>
       );
