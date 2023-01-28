@@ -20,7 +20,7 @@
   <script src="https://unpkg.com/@babel/standalone@7.20.13/babel.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    function Btn({ text, fontSize }) {
+    function Btn({ text, fontSize = 12 }) {
       return (
         <button
           style={{
