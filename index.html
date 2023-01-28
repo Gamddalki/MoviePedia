@@ -1,5 +1,6 @@
 <!--직접 만든 요소는 무조건 대문자로-->
 <!--리액트에서는 오로지 바뀐 부분만 업데이트 함 = 매우 인터렉티브한 어플을 만들 수 있음-->
+<!--부모 요소에서 자식 요소로 보내는 인자 props는 배열로 오직 하나만 전달-->
 
 <!DOCTYPE html>
 <html>
@@ -17,109 +18,26 @@
   <script src="https://unpkg.com/@babel/standalone@7.20.13/babel.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    function MinsHours() {
-      const [amount, setAmount] = React.useState(0);
-      const [flipped, setFlipped] = React.useState(false);
-
-      const onChange = (event) => {
-        setAmount(event.target.value);
-      };
-      const reset = () => setAmount(0);
-      const onFlip = () => {
-        setFlipped((current) => !current);
-        reset();
-      };
-
+    function Btn(props) {
       return (
-        <div>
-          <input
-            value={flipped ? Math.round(amount * 60) : amount}
-            placeholder="Minutes"
-            type="number"
-            onChange={onChange}
-            disabled={flipped}
-          />
-          <span> Mins</span>
-
-          <div>
-            <button onClick={reset}>Reset</button>
-            <button onClick={onFlip}>
-              {flipped ? "mins to hours" : "hours to mins"}
-            </button>
-          </div>
-
-          <input
-            value={flipped ? amount : Math.round(amount / 60)}
-            placeholder="Hours"
-            type="number"
-            onChange={onChange}
-            disabled={!flipped}
-          />
-          <span> Hours</span>
-        </div>
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+          }}
+        >
+          {props.text}
+        </button>
       );
     }
-
-    function KilosMiles() {
-      const [amount, setAmount] = React.useState(0);
-      const [flipped, setFlipped] = React.useState(false);
-
-      const onChange = (event) => {
-        setAmount(event.target.value);
-      };
-      const reset = () => setAmount(0);
-      const onFlip = () => {
-        setFlipped((current) => !current);
-        reset();
-      };
-
-      return (
-        <div>
-          <input
-            value={flipped ? Math.round(amount * 1.609344) : amount}
-            placeholder="Miles"
-            type="number"
-            onChange={onChange}
-            disabled={flipped}
-          />
-          <span> Miles</span>
-
-          <div>
-            <button onClick={reset}>Reset</button>
-            <button onClick={onFlip}>
-              {flipped ? "miles to kilos" : "kilos to miles"}
-            </button>
-          </div>
-
-          <input
-            value={flipped ? amount : Math.round(amount / 1.609344)}
-            placeholder="Kilos"
-            type="number"
-            onChange={onChange}
-            disabled={!flipped}
-          />
-          <span> Kilos</span>
-        </div>
-      );
-    }
-
     function App() {
-      const [index, setIndex] = React.useState("x");
-      const onSelect = (event) => {
-        setIndex(event.target.value);
-      };
       return (
         <div>
-          <h1>Super Converter</h1>
-          <select value={index} onChange={onSelect}>
-            <option value="x">Select</option>
-            <option value="0">Mins&Hours</option>
-            <option value="1">Kilos&Miles</option>
-          </select>
-          <div>
-            {index === "0" ? <MinsHours /> : null}
-            {index === "1" ? <KilosMiles /> : null}
-          </div>
+          <Btn text="Login" />
+          <Btn text="Join" />
         </div>
       );
     }
