@@ -1,29 +1,24 @@
 import { useEffect, useState } from "react";
 
+function Hello() {
+  function effectFn() {
+    console.log("Nice to meet u !!!");
+    return cleanupFn;
+  }
+  function cleanupFn() {
+    console.log("Byeeeeeee");
+  }
+  useEffect(effectFn, []);
+  return <h1>Boom!</h1>;
+}
+
 function App() {
-  const [counter, setCounter] = useState(0);
-  const [keyword, setKeyword] = useState("");
-  const onClick = () => setCounter((prev) => prev + 1);
-  const onChange = (event) => setKeyword(event.target.value);
-  console.log("YEAH");
-  useEffect(() => {
-    console.log("CALL API...");
-  }, []);
-  useEffect(() => {
-    if (keyword !== "") {
-      console.log("SEARCHING", keyword);
-    }
-  }, [keyword]);
+  const [showing, setShowing] = useState(false);
+  const onClick = () => setShowing((prev) => !prev);
   return (
     <div>
-      <input
-        value={keyword}
-        onChange={onChange}
-        type="text"
-        placeholder="Anything u wanna search?"
-      ></input>
-      <h1>{counter}</h1>
-      <button onClick={onClick}>Click me!</button>
+      {showing ? <Hello /> : null}
+      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
     </div>
   );
 }
