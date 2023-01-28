@@ -1,6 +1,7 @@
 <!--직접 만든 요소는 무조건 대문자로-->
 <!--리액트에서는 오로지 바뀐 부분만 업데이트 함 = 매우 인터렉티브한 어플을 만들 수 있음-->
 <!--부모 요소에서 자식 요소로 보내는 인자 props는 배열로 오직 하나만 전달-->
+<!--부모 요소에서 state 변경 시 자식 요소 몽땅 rerender = 어플리케이션이 느려지는 원인이 될 수 있음 : memo 사용-->
 
 <!DOCTYPE html>
 <html>
@@ -18,7 +19,7 @@
   <script src="https://unpkg.com/@babel/standalone@7.20.13/babel.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    function Btn({ text, big }) {
+    function Btn({ text, onClick }) {
       return (
         <button
           style={{
@@ -27,17 +28,20 @@
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
-            fontSize: big ? 20 : 15,
           }}
+          onClick={onClick}
         >
           {text}
         </button>
       );
     }
+    const MemorizedBtn = React.memo(Btn);
     function App() {
+      const [value, setValue] = React.useState("Login");
+      const changeValue = () => setValue("Logout");
       return (
         <div>
-          <Btn text="Login" big={true} />
+          <Btn text={value} onClick={changeValue} />
           <Btn text="Join" />
         </div>
       );
