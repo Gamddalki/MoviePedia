@@ -10,16 +10,17 @@
   </body>
   <script
     crossorigin
-    src="https://unpkg.com/react@18/umd/react.production.min.js"
+    src="https://unpkg.com/react@17/umd/react.development.js"
   ></script>
   <script
     crossorigin
-    src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+    src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
   ></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.20.13/babel.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    function Btn({ text, onClick }) {
+    function Btn({ text, fontSize }) {
       return (
         <button
           style={{
@@ -28,21 +29,22 @@
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
+            fontSize: { fontSize },
           }}
-          onClick={onClick}
         >
           {text}
         </button>
       );
     }
-    const MemorizedBtn = React.memo(Btn);
+    Btn.propTypes = {
+      text: PropTypes.string.isRequired,
+      fontSize: PropTypes.number,
+    };
     function App() {
-      const [value, setValue] = React.useState("Login");
-      const changeValue = () => setValue("Logout");
       return (
         <div>
-          <MemorizedBtn text={value} onClick={changeValue} />
-          <MemorizedBtn text="Join" />
+          <Btn text="Login" fontSize={15} />
+          <Btn fontSize={"Join"} />
         </div>
       );
     }
