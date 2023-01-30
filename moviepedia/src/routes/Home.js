@@ -22,7 +22,7 @@ function Home() {
       {loading ? (
         <>
           <div className={styles.loader}>
-            <strong>Loading...</strong>
+            <h2>Loading...</h2>
           </div>
         </>
       ) : null}
@@ -32,6 +32,7 @@ function Home() {
             key={movie.id}
             id={movie.id}
             title={movie.title}
+            year={movie.year}
             poster={movie.medium_cover_image}
             summary={movie.summary}
             genres={movie.genres}
