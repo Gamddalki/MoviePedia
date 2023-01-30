@@ -1,24 +1,30 @@
-import { useEffect, useState } from "react";
-
-function Hello() {
-  function effectFn() {
-    console.log("Nice to meet u !!!");
-    return cleanupFn;
-  }
-  function cleanupFn() {
-    console.log("Byeeeeeee");
-  }
-  useEffect(effectFn, []);
-  return <h1>Boom!</h1>;
-}
+import { useState } from "react";
 
 function App() {
-  const [showing, setShowing] = useState(false);
-  const onClick = () => setShowing((prev) => !prev);
+  const [todo, setTodo] = useState("");
+  const [todos, setTodos] = useState([]);
+  const onChange = (event) => setTodo(event.target.value);
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (todo === "") {
+      return;
+    }
+    setTodos((currentArray) => [...currentArray, todo]);
+    setTodo("");
+  };
+  console.log(todos);
   return (
     <div>
-      {showing ? <Hello /> : null}
-      <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
+      <h1>{todos.length} things to do</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          type="text"
+          placeholder="Anything to do?"
+          onChange={onChange}
+          value={todo}
+        ></input>
+        <button>Add</button>
+      </form>
     </div>
   );
 }
