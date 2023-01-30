@@ -1,4 +1,6 @@
-function Movie({ title, poster, summary, genres }) {
+import { Link } from "react-router-dom";
+
+function Movie({ id, title, poster, summary, genres }) {
   return (
     <div>
       <h2>{title}</h2>
